@@ -25,11 +25,13 @@
 				}
 				else{
 					scope.task={};
+					scope.edit = false;
 				}
 		}
 
 		scope.$on('event:setTask',function(event,data){
 			scope.task = data;
+			scope.edit = true;
 		});
 	}
 
@@ -49,7 +51,7 @@
 			this.tasks.splice(task,1);
 		};
 	}
-	
+
   angular.module('app',[])
   		.controller('parentCtrl', ['$scope', Parent])
 		.controller('taskFormCtrl', ['$scope', TaskForm])

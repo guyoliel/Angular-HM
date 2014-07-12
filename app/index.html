@@ -60,8 +60,8 @@
                 </thead>
                 <tbody>
 
-                <tr ng-repeat="task in table.tasks">
-                    <td class="text-center"><input class="input" type="checkbox"/></td>
+                <tr ng-repeat="task in table.tasks" ng-class="{taskdone: task.done}">
+                    <td class="text-center"><input class="input" type="checkbox" ng-model="task.done"/></td>
                     <td>{{task.title}}</td>
                     <td>{{task.description}}</td>
                     <td>
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button class="form-control btn btn-primary" ng-click="form.addTask(task);">Add</button>
+                    <button class="form-control btn btn-primary" ng-click="form.addTask(task);">{{ (task.done == null) ? 'Add' : 'Edit'}}</button>
                 </div>
             </form>
         </div><!-- /task form -->
