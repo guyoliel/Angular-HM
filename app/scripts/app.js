@@ -8,20 +8,29 @@
 		scope.$on('event:addTask',function(event,data){
 			scope.$broadcast('event:saveTask',data);
 		});
+
+		scope.$on('event:editTask',function(event,data){
+			scope.$broadcast('event:setTask',data);
+		});
+
 	}
 
 	function TaskForm(scope){
 		scope.task={};
 		this.addTask=function(task){
-			if (scope.task.done==null) {
+				if(scope.task.done==undefined){
 				scope.task.done=false;
 				scope.$emit('event:addTask',task);
-			}
-			else {
-				scope.$emit('event:updateTask',task);
-			}
-			scope.task={};
+				scope.task={};
+				}
+				else{
+					scope.task={};
+				}
 		}
+
+		scope.$on('event:setTask',function(event,data){
+			scope.task = data;
+		});
 	}
 
 	function Table(scope){
@@ -30,25 +39,17 @@
 		scope.$on('event:saveTask',function(event,data){
 			self.tasks.push(data);
 		});
+
+		this.editTask = function(task){
+			scope.$emit('event:editTask',task);
+		}
 	}
 	/*
-	this.tasks = [];
-	this.task = {};
-	this.edit = false;
-	this.addTask = function (task) {
-		this.tasks.push(task);
-		this.task = {};
-		this.edit = false
-	};
 	this.deleteTask = function (task) {
 		var i = this.tasks.indexOf(task);
 		this.tasks.splice(task,1);
 	};
-
-	this.startEditTask = function (task){
-		this.edit=true;
-		this.task = task;
-	*/
+*/
   angular.module('app',[])
   		.controller('parentCtrl', ['$scope', Parent])
 		.controller('taskFormCtrl', ['$scope', TaskForm])
