@@ -24,11 +24,20 @@
 		scope.$on('event:clearLog',function(event){
 			scope.$broadcast('event:onClearLog');
 		});
+
+		scope.$on('event:toggle',function(event){
+			console.log("hi");
+			scope.$broadcast('event:onToggle');
+		});
 	}
 
 	function ActionBar(scope){
 		this.clearLog = function(){
 			scope.$emit('event:clearLog');
+		}
+
+		this.toggle = function(){
+			scope.$emit('event:toggle');
 		}
 	}
 
@@ -54,6 +63,7 @@
 
 	function TaskForm(scope){
 		scope.task={};
+		var self = this;
 		this.addTask=function(task){
 				if(scope.task.done==undefined){
 				scope.task.done=false;
@@ -71,10 +81,12 @@
 			scope.task = data;
 			scope.edit = true;
 		});
+
 	}
 
 	function Table(scope){
 		this.tasks = [];
+		this.show = false;
 		var self = this;
 		scope.$on('event:saveTask',function(event,data){
 			self.tasks.push(data);
@@ -90,6 +102,9 @@
 			scope.$emit('event:deleteTask');
 		};
 
+		scope.$on('event:onToggle',function(event){
+			self.show= !self.show;
+		});
 	}
 
   angular.module('app',[])

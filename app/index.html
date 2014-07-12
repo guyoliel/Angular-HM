@@ -28,7 +28,7 @@
     <section class="row" ng-controller="actionBarCtrl as bar">
         <div class="panel panel-default">
             <div class="panel-body">
-                <button class="btn btn-default">show/hide completed</button>
+                <button class="btn btn-default" ng-click="bar.toggle();">show/hide completed</button>
                 <button class="btn btn-default" ng-click="bar.clearLog();">Clear Log</button>
 
             </div>
@@ -40,7 +40,7 @@
         <!-- task log -->
         <div class="col-lg-3" ng-controller = "logCtrl as log">
             <ul class="list-unstyled">
-                <li ng-repeat="log in log.logs">{{log}}</li>
+                <li ng-repeat="log in log.logs track by $index">{{log}}</li>
             </ul>
         </div> <!-- /task log -->
 
@@ -57,7 +57,7 @@
                 </thead>
                 <tbody>
 
-                <tr ng-repeat="task in table.tasks" ng-class="{taskdone: task.done}">
+                <tr ng-repeat="task in table.tasks" ng-hide="table.show && task.done" ng-class="{taskdone: task.done}">
                     <td class="text-center"><input class="input" type="checkbox" ng-model="task.done" ng-change="completeTask(task.done);"/></td>
                     <td>{{task.title}}</td>
                     <td>{{task.description}}</td>
