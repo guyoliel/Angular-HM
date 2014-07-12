@@ -13,6 +13,31 @@
 			scope.$broadcast('event:setTask',data);
 		});
 
+		scope.$on('event:deleteTask',function(event){
+			scope.$broadcast('event:logDeleteTask');
+		});
+
+		scope.$on('event:editedTask',function(event){
+			scope.$broadcast('event:logEditTask');
+		});
+
+	}
+
+	function Log(scope,filter){
+		this.logs = [];
+		var log = this;
+		scope.$on('event:saveTask',function(event){
+			log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' new task added');
+		});
+
+		scope.$on('event:logEditTask',function(event){
+			log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' task was updated');
+		});
+
+		scope.$on('event:logDeleteTask',function(event){
+			log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' task was deleted');
+		});
+
 	}
 
 	function TaskForm(scope){
@@ -26,6 +51,7 @@
 				else{
 					scope.task={};
 					scope.edit = false;
+					scope.$emit('event:editedTask',task);
 				}
 		}
 
@@ -49,11 +75,14 @@
 		this.deleteTask = function (task) {
 			var i = this.tasks.indexOf(task);
 			this.tasks.splice(task,1);
+			scope.$emit('event:deleteTask');
 		};
+
 	}
 
   angular.module('app',[])
   		.controller('parentCtrl', ['$scope', Parent])
 		.controller('taskFormCtrl', ['$scope', TaskForm])
-		.controller('tableCtrl', ['$scope', Table]);
+		.controller('tableCtrl', ['$scope', Table])
+		.controller('logCtrl', ['$scope','$filter', Log]);
 })(window,angular);

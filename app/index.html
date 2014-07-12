@@ -38,12 +38,9 @@
     <div class="row">
 
         <!-- task log -->
-        <div class="col-lg-3">
+        <div class="col-lg-3" ng-controller = "logCtrl as log">
             <ul class="list-unstyled">
-                <li><samp>22/6/14 12:00 - new task added</samp></li>
-                <li><samp>23/6/14 12:05 - task completed</samp></li>
-                <li><samp>24/6/14 13:05 - task removed</samp></li>
-                <li><samp>28/6/14 13:05 - task removed</samp></li>
+                <li ng-repeat="log in log.logs">{{log}}</li>
             </ul>
         </div> <!-- /task log -->
 
@@ -61,7 +58,7 @@
                 <tbody>
 
                 <tr ng-repeat="task in table.tasks" ng-class="{taskdone: task.done}">
-                    <td class="text-center"><input class="input" type="checkbox" ng-model="task.done"/></td>
+                    <td class="text-center"><input class="input" type="checkbox" ng-model="task.done" ng-change="completeTask(task.done);"/></td>
                     <td>{{task.title}}</td>
                     <td>{{task.description}}</td>
                     <td>
