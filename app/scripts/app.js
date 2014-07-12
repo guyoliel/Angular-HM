@@ -43,13 +43,13 @@
 		this.editTask = function(task){
 			scope.$emit('event:editTask',task);
 		}
+
+		this.deleteTask = function (task) {
+			var i = this.tasks.indexOf(task);
+			this.tasks.splice(task,1);
+		};
 	}
-	/*
-	this.deleteTask = function (task) {
-		var i = this.tasks.indexOf(task);
-		this.tasks.splice(task,1);
-	};
-*/
+	
   angular.module('app',[])
   		.controller('parentCtrl', ['$scope', Parent])
 		.controller('taskFormCtrl', ['$scope', TaskForm])
