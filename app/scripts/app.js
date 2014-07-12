@@ -21,6 +21,15 @@
 			scope.$broadcast('event:logEditTask');
 		});
 
+		scope.$on('event:clearLog',function(event){
+			scope.$broadcast('event:onClearLog');
+		});
+	}
+
+	function ActionBar(scope){
+		this.clearLog = function(){
+			scope.$emit('event:clearLog');
+		}
 	}
 
 	function Log(scope,filter){
@@ -38,6 +47,9 @@
 			log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' task was deleted');
 		});
 
+		scope.$on('event:onClearLog',function(event){
+			log.logs=[];
+		});
 	}
 
 	function TaskForm(scope){
@@ -84,5 +96,6 @@
   		.controller('parentCtrl', ['$scope', Parent])
 		.controller('taskFormCtrl', ['$scope', TaskForm])
 		.controller('tableCtrl', ['$scope', Table])
-		.controller('logCtrl', ['$scope','$filter', Log]);
+		.controller('logCtrl', ['$scope','$filter', Log])
+		.controller('actionBarCtrl', ['$scope', ActionBar]);
 })(window,angular);
