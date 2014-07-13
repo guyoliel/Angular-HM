@@ -26,8 +26,12 @@
 		});
 
 		scope.$on('event:toggle',function(event){
-			console.log("hi");
 			scope.$broadcast('event:onToggle');
+		});
+
+		scope.$on('event:completeTask',function(event,data){
+			console.log(data);
+			scope.$broadcast('event:logCompleteTask',data);
 		});
 	}
 
@@ -58,6 +62,15 @@
 
 		scope.$on('event:onClearLog',function(event){
 			log.logs=[];
+		});
+
+		scope.$on('event:logCompleteTask',function(event,data){
+			if (!data) {
+				log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' task was completed');
+			}else{
+				log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' task was uncompleted');
+			}
+
 		});
 	}
 
@@ -102,6 +115,9 @@
 			scope.$emit('event:deleteTask');
 		};
 
+		this.completeTask = function(bool) {
+			scope.$emit('event:completeTask',bool);
+		}
 		scope.$on('event:onToggle',function(event){
 			self.show= !self.show;
 		});
