@@ -2,12 +2,14 @@
     console.log('taskForm controller is running');
     function TaskForm(scope){
         scope.task={};
-        var self = this;
+        scope.options=['Priority','High','Medium','Low'];
+        scope.task.priority=scope.options[0];
         this.addTask=function(task){
                 if(scope.task.done==undefined){
                 scope.task.done=false;
                 scope.$emit('event:addTask',task);
                 scope.task={};
+                scope.task.priority=scope.options[0];
                 }
                 else{
                     scope.task={};
