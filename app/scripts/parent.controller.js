@@ -30,5 +30,5 @@
        });
    }
      angular.module('app')
-         .controller('parentCtrl', ['$scope', Parent])
+         .controller('parentCtrl', ['$scope', Parent]);
 })();

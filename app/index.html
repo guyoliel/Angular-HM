@@ -16,6 +16,7 @@
     <script src="scripts/parent.controller.js"></script>
     <script src="scripts/table.controller.js"></script>
     <script src="scripts/taskForm.controller.js"></script>
+    <script src="scripts/words.filter.js"></script>
 
 </head>
 
@@ -68,7 +69,7 @@
                 <tr class="task-list" ng-repeat="task in table.tasks |filter:table.search" ng-hide="table.show && task.done" ng-class="{taskdone: task.done}">
                     <td class="text-center"><input class="input" type="checkbox" ng-model="task.done" ng-click="table.completeTask(task.done);"/></td>
                     <td>{{task.title}}</td>
-                    <td>{{task.description}}</td>
+                    <td>{{task.description | words : 5}}</td>
                     <td>
                         <div class="btn-group btn-group-sm">
                             <button class="btn btn-danger">
