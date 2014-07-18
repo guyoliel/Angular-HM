@@ -2,3 +2,11 @@
     background: lightgreen;
     text-decoration: line-through;
 }
+.task-list.ng-enter{
+  -webkit-animation: lightSpeedIn 0.3s linear; /* Safari/Chrome */
+  animation: lightSpeedIn 0.3s linear; /* IE10+ and Future Browsers */
+}
+.task-list.ng-leave{
+  -webkit-animation: hinge 1s linear; /* Safari/Chrome */
+  animation: hinge 1s linear; /* IE10+ and Future Browsers */
+}

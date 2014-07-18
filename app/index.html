@@ -7,7 +7,9 @@
 
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="styles/skin.css"/>
+    <link rel="stylesheet" href="styles/animate.css"/>
     <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
     <script src="scripts/app.js"></script>
 
 </head>
@@ -40,12 +42,13 @@
         <!-- task log -->
         <div class="col-lg-3" ng-controller = "logCtrl as log">
             <ul class="list-unstyled">
-                <li ng-repeat="log in log.logs track by $index">{{log}}</li>
+                <li ng-repeat="log in log.logs track by $index">{{log | date : short}}</li>
             </ul>
         </div> <!-- /task log -->
 
         <!-- task table -->
         <div class="col-lg-7" ng-controller="tableCtrl as table">
+            <input type="text" ng-model="table.search" placeholder="search..."/>
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
@@ -57,7 +60,7 @@
                 </thead>
                 <tbody>
 
-                <tr ng-repeat="task in table.tasks" ng-hide="table.show && task.done" ng-class="{taskdone: task.done}">
+                <tr class="task-list" ng-repeat="task in table.tasks |filter:table.search" ng-hide="table.show && task.done" ng-class="{taskdone: task.done}">
                     <td class="text-center"><input class="input" type="checkbox" ng-model="task.done" ng-click="table.completeTask(task.done);"/></td>
                     <td>{{task.title}}</td>
                     <td>{{task.description}}</td>

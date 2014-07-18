@@ -49,15 +49,15 @@
 		this.logs = [];
 		var log = this;
 		scope.$on('event:saveTask',function(event){
-			log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' new task added');
+			log.logs.push(filter('date')((new Date), 'short') + ' new task added');
 		});
 
 		scope.$on('event:logEditTask',function(event){
-			log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' task was updated');
+			log.logs.push(filter('date')((new Date), 'short') + ' task was updated');
 		});
 
 		scope.$on('event:logDeleteTask',function(event){
-			log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' task was deleted');
+			log.logs.push(filter('date')((new Date), 'short') + ' task was deleted');
 		});
 
 		scope.$on('event:onClearLog',function(event){
@@ -66,9 +66,9 @@
 
 		scope.$on('event:logCompleteTask',function(event,data){
 			if (!data) {
-				log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' task was completed');
+				log.logs.push(filter('date')((new Date), 'short') + ' task was completed');
 			}else{
-				log.logs.push(filter('date')((new Date), 'MM/dd/yy h:mm') + ' task was uncompleted');
+				log.logs.push(filter('date')((new Date), 'short') + ' task was uncompleted');
 			}
 
 		});
@@ -110,7 +110,6 @@
 		}
 
 		this.deleteTask = function (task) {
-			var i = this.tasks.indexOf(task);
 			this.tasks.splice(task,1);
 			scope.$emit('event:deleteTask');
 		};
@@ -123,7 +122,11 @@
 		});
 	}
 
-  angular.module('app',[])
+	function wordCount(msg){
+		var arr = msg.split(" ");
+	}
+
+  angular.module('app',['ngAnimate'])
   		.controller('parentCtrl', ['$scope', Parent])
 		.controller('taskFormCtrl', ['$scope', TaskForm])
 		.controller('tableCtrl', ['$scope', Table])
