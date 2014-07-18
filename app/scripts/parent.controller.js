@@ -1,6 +1,7 @@
 (function(){
     console.log('parent controller is running');
     function Parent(scope){
+       scope.actionshow=false;
        scope.$on('event:addTask',function(event,data){
            scope.$broadcast('event:saveTask',data);
        });

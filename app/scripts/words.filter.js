@@ -3,7 +3,7 @@
     function Words(){
         return function (input, words) {
             if (input) {
-                var inputWords = input.split(/\s+/);
+                var inputWords = input.split(' ');
                 if (inputWords.length > words) {
                     input = inputWords.slice(0, words).join(' ') + '...';
                 }

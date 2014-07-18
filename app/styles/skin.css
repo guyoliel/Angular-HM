@@ -9,3 +9,9 @@
   -webkit-animation: hinge 1s linear; /* Safari/Chrome */
   animation: hinge 1s linear; /* IE10+ and Future Browsers */
 }
+.error-form{
+    color:red;
+}
+.highlight-log{
+    background-color:#90EE90;
+}

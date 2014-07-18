@@ -23,32 +23,20 @@
 <body ng-app="app">
 
 <div class="container" ng-controller = "parentCtrl as parent">
-
-    <header class="row">
-        <div class="page-header">
-            <h1>Task Manager
-                <span class="glyphicon glyphicon-th pull-right"></span>
-            </h1>
-        </div>
-    </header>
+    <!--header-->
+    <ng-include src="'partials/header.html'"></ng-include>
+    <!--/header-->
 
     <!-- action bar -->
-    <section class="row" ng-controller="actionBarCtrl as bar">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <button class="btn btn-default" ng-click="bar.toggle();">show/hide completed</button>
-                <button class="btn btn-default" ng-click="bar.clearLog();">Clear Log</button>
-
-            </div>
-        </div>
-    </section><!-- /action bar -->
+    <ng-include src="'partials/actionbar.html'"></ng-include>
+    <!-- /action bar -->
 
     <div class="row">
 
         <!-- task log -->
         <div class="col-lg-3" ng-controller = "logCtrl as log">
             <ul class="list-unstyled">
-                <li ng-repeat="log in log.logs track by $index">{{log | date : short}}</li>
+                <li ng-repeat="log in log.logs track by $index" ng-class-odd="'highlight-log'">{{log | date : short}}</li>
             </ul>
         </div> <!-- /task log -->
 
@@ -68,7 +56,7 @@
                 </thead>
                 <tbody>
 
-                <tr class="task-list" ng-repeat="task in table.tasks |filter:table.search" ng-hide="table.show && task.done" ng-class="{taskdone: task.done}">
+                <tr class="task-list" ng-dblclick="table.editTask(task);" ng-repeat="task in table.tasks |filter:table.search" ng-hide="table.show && task.done" ng-class="{taskdone: task.done}">
                     <td class="text-center"><input class="input" type="checkbox" ng-model="task.done" ng-click="table.completeTask(task.done);"/></td>
                     <td>{{task.title}}</td>
                     <td>{{task.description | words : 5}}</td>
@@ -101,11 +89,13 @@
                 <div class="form-group" ng-class="{'has-error has-feedback' : formhtml.title.$invalid, 'has-success has-feedback' : formhtml.title.$valid}">
                     <input type="text" name="title" class="form-control input" ng-model="task.title" placeholder="Title" required ng-minlength="6">
                     <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove' : formhtml.title.$invalid, 'glyphicon-ok' : formhtml.title.$valid}"></span>
+                    <span class="error-form" ng-show="formhtml.title.$invalid">Title must be atleast 6 characters!</span>
                 </div>
 
                 <div class="form-group" ng-class="{'has-error has-feedback' : formhtml.description.$invalid, 'has-success has-feedback' : formhtml.description.$valid}">
                     <textarea name="description" rows="6" class="form-control input" ng-model="task.description" placeholder="Description" required></textarea>
                     <span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove' : formhtml.description.$invalid, 'glyphicon-ok' : formhtml.description.$valid}"></span>
+                    <span class="error-form" ng-show="formhtml.description.$invalid">Description must be specified!</span>
                 </div>
 
                 <div class="form-group">
