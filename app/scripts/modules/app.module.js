@@ -4,6 +4,6 @@
 (function(window,angular){
 	console.log('app module is running');
 
-  angular.module('app',['ngAnimate']);
+  angular.module('app',['ngAnimate','decorator']);
 
 })(window,angular);

@@ -1,6 +1,7 @@
 (function(){
-    console.log('actionBar controller is running');
-    function ActionBar(scope){
+
+    function ActionBar(scope,log){
+        log.debug('actionBar controller is running');
         this.clearLog = function(){
             scope.$emit('event:clearLog');
         }
@@ -11,5 +12,5 @@
     }
 
     angular.module('app')
-        .controller('actionBarCtrl', ['$scope', ActionBar])
+        .controller('actionBarCtrl', ['$scope','$log', ActionBar])
 })();

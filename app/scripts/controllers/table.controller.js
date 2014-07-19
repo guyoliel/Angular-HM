@@ -1,6 +1,6 @@
 (function(){
-    console.log('table controller is running');
-    	function Table(scope){
+    	function Table(scope,log){
+        log.debug('table controller is running');
 		this.tasks = [];
 		this.show = false;
 		var self = this;
@@ -26,5 +26,5 @@
 		});
 	}
     angular.module('app')
-        .controller('tableCtrl', ['$scope', Table]);
+        .controller('tableCtrl', ['$scope','$log', Table]);
 })();

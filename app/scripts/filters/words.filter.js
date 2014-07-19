@@ -1,6 +1,6 @@
 (function(){
-    console.log('words filter is running');
-    function Words(){
+    function Words(log){
+        log.debug('words filter is running');
         return function (input, words) {
             if (input) {
                 var inputWords = input.split(' ');
@@ -12,5 +12,5 @@
         };
     }
 angular.module('app')
-    .filter('words', Words);
+    .filter('words',['$log', Words]);
 })();

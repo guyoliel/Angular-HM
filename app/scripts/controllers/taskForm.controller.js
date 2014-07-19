@@ -1,6 +1,6 @@
 (function(){
-    console.log('taskForm controller is running');
-    function TaskForm(scope){
+    function TaskForm(scope,log){
+        log.debug('taskForm controller is running');
         scope.task={};
         scope.options=['Priority','High','Medium','Low'];
         scope.task.priority=scope.options[0];
@@ -26,5 +26,5 @@
     }
 
     angular.module('app')
-        .controller('taskFormCtrl',['$scope',TaskForm]);
+        .controller('taskFormCtrl',['$scope','$log',TaskForm]);
 })();

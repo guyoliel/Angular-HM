@@ -1,6 +1,6 @@
 (function(){
-    console.log('log controller is running');
-    function Log(scope,filter){
+    function Log(scope,filter,log){
+        log.debug('log controller is running');
         this.logs = [];
         var log = this;
         scope.$on('event:saveTask',function(event){
@@ -29,5 +29,5 @@
         });
     }
     angular.module('app')
-        .controller('logCtrl', ['$scope','$filter',Log]);
+        .controller('logCtrl', ['$scope','$filter','$log',Log]);
 })();

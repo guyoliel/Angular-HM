@@ -1,6 +1,6 @@
 (function(){
-    console.log('parent controller is running');
-    function Parent(scope){
+    function Parent(scope,log){
+       log.debug('parent controller is running');
        scope.actionshow=false;
        scope.$on('event:addTask',function(event,data){
            scope.$broadcast('event:saveTask',data);
@@ -31,5 +31,5 @@
        });
    }
      angular.module('app')
-         .controller('parentCtrl', ['$scope', Parent]);
+         .controller('parentCtrl', ['$scope','$log', Parent]);
 })();
