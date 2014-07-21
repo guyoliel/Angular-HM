@@ -1,5 +1,5 @@
 (function(){
-    function TaskForm(scope,log){
+    function TaskForm(scope,log,dataStorage){
         log.debug('taskForm controller is running');
         scope.task={};
         scope.options=['Priority','High','Medium','Low'];

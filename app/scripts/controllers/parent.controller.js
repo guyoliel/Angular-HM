@@ -1,5 +1,5 @@
 (function(){
-    function Parent(scope,log){
+    function Parent(scope,log,dataStorage){
        log.debug('parent controller is running');
        scope.actionshow=false;
        scope.$on('event:addTask',function(event,data){
@@ -29,7 +29,15 @@
        scope.$on('event:completeTask',function(event,data){
            scope.$broadcast('event:logCompleteTask',data);
        });
+
+       scope.$on('event:saveToLocalTasks',function(event,data){
+           dataStorage.set('tasks',data);
+       });
+
+       scope.$on('event:saveToLocalLogs',function(event,data){
+           dataStorage.set('logs',data);
+       });
    }
      angular.module('app')
-         .controller('parentCtrl', ['$scope','$log', Parent]);
+         .controller('parentCtrl', ['$scope','$log','dataStorage', Parent]);
 })();
